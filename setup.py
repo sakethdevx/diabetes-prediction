@@ -1,17 +1,18 @@
 from setuptools import setup, find_packages
 
-with open("requirements.txt") as f:
+# Read requirements from requirements.txt
+with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(
     name="diabetes_prediction",
     version="1.0.0",
-    python_requires='>=3.10,<3.11',  # Strictly Python 3.10.x
+    python_requires='>=3.10',  # More flexible Python version requirement
     packages=find_packages(),
     install_requires=requirements,
     include_package_data=True,
     package_data={
-        '': ['*.csv', '*.toml'],
+        '': ['*.csv', '*.toml', '*.joblib'],
     },
     entry_points={
         'console_scripts': [
@@ -23,9 +24,9 @@ setup(
     description="A Streamlit app for diabetes prediction",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/diabetes-prediction",
+    url="https://github.com/saketh-005/diabetes-prediction",
     classifiers=[
-        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
