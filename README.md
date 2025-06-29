@@ -3,47 +3,82 @@
 A production-ready web application for diabetes prediction using machine learning.
 
 ## Features
-- Gradient Boosting model with optimized hyperparameters
-- Interactive web interface with Streamlit
-- Comprehensive data preprocessing
-- Model performance metrics and visualizations
+- Interactive UI with real-time predictions
+- Model accuracy: ~86.6%
+- Feature importance visualization
+- Confusion matrix and performance metrics
+- Cross-platform support (Windows/macOS/Linux)
 - Containerized with Docker
-- Environment management with pip-tools
 
 ## Prerequisites
-- Python 3.8+
-- Docker (optional, for containerized deployment)
+- Python 3.8+ (for pip installation)
+- pip (Python package manager)
+- Git (for cloning the repository)
+- Docker (for containerized deployment)
 
-## Installation
+## Installation Methods
 
-### Option 1: Using pip
+### Method 1: Using pip (macOS/Linux/Windows)
+
+#### 1. Clone the Repository
 ```bash
-# Create and activate virtual environment
+git clone https://github.com/saketh-005/diabetes-prediction.git
+cd diabetes-prediction
+```
+
+#### 2. Set Up Virtual Environment
+
+**macOS/Linux:**
+```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
+source venv/bin/activate
 ```
 
-### Option 2: Using Docker
+**Windows:**
+```cmd
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+#### 3. Install Dependencies
 ```bash
-docker build -t diabetes-prediction .
-docker run -p 8501:8501 diabetes-prediction
+# Install pip-tools first
+pip install pip-tools
+
+# Install all dependencies
+pip-sync
 ```
 
-## Running the Application
+#### 4. Run the Application
 ```bash
 streamlit run app.py
 ```
+The application will be available at: http://localhost:8501
 
-The application will be available at http://localhost:8501
+### Method 2: Using Docker
+
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/saketh-005/diabetes-prediction.git
+cd diabetes-prediction
+```
+
+#### 2. Build the Docker Image
+```bash
+docker build -t diabetes-prediction .
+```
+
+#### 3. Run the Container
+```bash
+docker run -p 8501:8501 diabetes-prediction
+```
+The application will be available at: http://localhost:8501
 
 ## Project Structure
 ```
-diabetes_prediction/
+diabetes-prediction/
 ├── .dockerignore
-├── .env.example
+├── .env.example       # Example environment variables
 ├── .gitignore
 ├── Dockerfile
 ├── README.md
