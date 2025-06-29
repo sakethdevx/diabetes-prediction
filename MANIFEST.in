@@ -1,4 +1,0 @@
-include *.csv
-include *.md
-include LICENSE
-recursive-include .streamlit *
