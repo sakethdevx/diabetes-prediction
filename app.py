@@ -172,24 +172,6 @@ def main():
             initial_sidebar_state="expanded"
         )
         
-        # Custom CSS for better styling
-        st.markdown("""
-        <style>
-            .main .block-container {
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-            }
-            .stButton>button {
-                width: 100%;
-                border-radius: 5px;
-                font-weight: bold;
-            }
-            .stProgress > div > div > div > div {
-                background-color: #4CAF50;
-            }
-        </style>
-        """, unsafe_allow_html=True)
-        
         # Setup environment
         setup_environment()
         
@@ -199,11 +181,10 @@ def main():
             df = preprocess_data(df)
             X = df.drop(['Outcome'], axis=1)
             y = df['Outcome']
+            
+            # Split the data
             X_train, X_test, y_train, y_test = train_test_split(
-                X, y, 
-                test_size=0.2, 
-                random_state=RANDOM_STATE, 
-                stratify=y
+                X, y, test_size=0.2, random_state=RANDOM_STATE
             )
         
         # Check for saved model, otherwise train a new one
@@ -221,16 +202,67 @@ def main():
         and click 'Predict' to see the results.
         """)
         
-        # Get user input
-        user_data = get_user_input()
-        
-        # Display user input in main area
-        with st.expander("View Patient Data"):
-            st.dataframe(user_data.style.format({
-                'BMI': '{:.1f}',
-                'DiabetesPedigreeFunction': '{:.3f}'
-            }))
-        
+        # Get user input and display it
+        try:
+            user_data = get_user_input()
+            
+            # Display user input in main area
+            with st.expander("View Patient Data"):
+                st.dataframe(user_data.style.format({
+                    'Pregnancies': '{:.0f}',
+                    'Glucose': '{:.0f} mg/dL',
+                    'BloodPressure': '{:.0f} mm Hg',
+                    'SkinThickness': '{:.0f} mm',
+                    'Insulin': '{:.0f} mu U/ml',
+                    'BMI': '{:.1f} kg/m²',
+                    'DiabetesPedigreeFunction': '{:.3f}',
+                    'Age': '{:.0f} years'
+                }))
+                
+                # Make prediction when user clicks the button
+                if st.button('Predict Diabetes Risk'):
+                    with st.spinner('Analyzing...'):
+                        prediction = model.predict(user_data)
+                        prediction_proba = model.predict_proba(user_data)
+                        
+                        # Display results
+                        st.subheader('Prediction Results')
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.metric(
+                                "Risk of Diabetes",
+                                "High Risk" if prediction[0] == 1 else "Low Risk",
+                                f"{prediction_proba[0][1] * 100:.2f}%"
+                            )
+                        with col2:
+                            st.metric(
+                                "Confidence",
+                                f"{np.max(prediction_proba) * 100:.1f}%",
+                                "in prediction"
+                            )
+                            
+                        # Display feature importance
+                        st.subheader('Feature Importance')
+                        if hasattr(model, 'feature_importances_'):
+                            feature_importance = pd.DataFrame({
+                                'Feature': X_train.columns,
+                                'Importance': model.feature_importances_
+                            }).sort_values('Importance', ascending=False)
+                            
+                            fig, ax = plt.subplots(figsize=(10, 6))
+                            sns.barplot(
+                                x='Importance', 
+                                y='Feature', 
+                                data=feature_importance,
+                                palette='viridis'
+                            )
+                            plt.title('Feature Importance')
+                            plt.tight_layout()
+                            st.pyplot(fig)
+                            
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
+            logger.error(f"Error in main app: {str(e)}", exc_info=True)
         # Make prediction
         if st.sidebar.button('Predict', type='primary'):
             with st.spinner('Analyzing...'):
