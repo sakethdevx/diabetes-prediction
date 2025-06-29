@@ -68,5 +68,5 @@ Pipfile*
 poetry.lock
 
 # Python version
-.python-version
+# .python-version  # Temporarily allowing this file for deployment
 !diabetes.csv
