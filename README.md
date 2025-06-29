@@ -16,7 +16,18 @@ A production-ready web application for diabetes prediction using machine learnin
 - Git (for cloning the repository)
 - Docker (for containerized deployment)
 
-## Installation Methods
+## Deployment Options
+
+### Option 1: Streamlit Cloud (Recommended)
+
+1. **Fork** this repository to your GitHub account
+2. Go to [Streamlit Cloud](https://share.streamlit.io/)
+3. Click "New app" and select your forked repository
+4. Set the branch to `main`
+5. Set the main file path to `app.py`
+6. Click "Deploy!"
+
+### Option 2: Local Installation
 
 ### Method 1: Using pip (macOS/Linux/Windows)
 
