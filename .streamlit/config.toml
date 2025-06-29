@@ -17,3 +17,17 @@ backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F0F2F6"
 textColor = "#262730"
 font = "sans serif"
+
+# Python version requirements
+[python]
+version = "3.10"
+
+# Dependencies
+[dependencies]
+matplotlib = "3.8.2"
+numpy = "1.26.3"
+pandas = "2.1.4"
+scikit-learn = "1.3.2"
+seaborn = "0.13.2"
+joblib = "1.3.2"
+Pillow = "10.4.0"
