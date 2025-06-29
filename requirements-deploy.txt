@@ -1,3 +1,2 @@
-# This file is kept for compatibility
-# Dependencies are now managed by setup.py
--e .
+# Install the package in development mode with all dependencies
+-e .[dev]
