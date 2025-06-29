@@ -19,18 +19,25 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Virtual Environment
 venv/
 ENV/
 .env
 .venv
+env/
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints
 
 # Logs and databases
 *.log
@@ -48,4 +55,18 @@ Thumbs.db
 
 # Project specific
 models/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Environment files
+.env.local
+.env.*.local
+
+# Dependency files
+Pipfile*
+poetry.lock
+
+# Python version
+.python-version
 !diabetes.csv
