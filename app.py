@@ -26,18 +26,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Load environment variables
-load_dotenv()
+# Load environment variables (ignore if .env doesn't exist)
+load_dotenv(verbose=False)
 
 # Constants
-MODEL_PATH = Path('models/model.joblib')
+MODEL_DIR = Path('models')
+MODEL_PATH = MODEL_DIR / 'model.joblib'
 DATA_PATH = Path('diabetes.csv')
-RANDOM_STATE = 42
 
 def setup_environment():
     """Set up the application environment."""
-    # Create models directory if it doesn't exist
-    MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    # Ensure models directory exists
+    MODEL_DIR.mkdir(parents=True, exist_ok=True)
     logger.info("Environment setup complete")
 
 def load_data():
