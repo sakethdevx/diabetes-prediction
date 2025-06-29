@@ -33,6 +33,7 @@ load_dotenv(verbose=False)
 MODEL_DIR = Path('models')
 MODEL_PATH = MODEL_DIR / 'model.joblib'
 DATA_PATH = Path('diabetes.csv')
+RANDOM_STATE = 42  # For reproducible results
 
 def setup_environment():
     """Set up the application environment."""
